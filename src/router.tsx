@@ -2,15 +2,15 @@ import {  typesafeBrowserRouter } from "react-router-typesafe";
 
 //pages and components
 import App from "./App";
-import ErrorPage from "./pages/Error.page";
-import Index from "./pages/Index.page";
-import Auth from "./pages/Auth.page";
-import Account from "./pages/Account.page";
-import Projects from "./pages/Projects.page";
-import IndexProjects from "./pages/IndexProjects.page";
-import Project from "./pages/Project.page";
-import Fabrics from "./pages/Fabrics.page";
-import Rhinestones from "./pages/Rhinestones.page";
+import ErrorPage from "./pages/Error/Error";
+import Index from "./pages/Index/App/Index";
+import Auth from "./pages/Auth/Auth";
+import Account from "./pages/Account/Account";
+import Projects from "./pages/Projects/Projects";
+import IndexProjects from "./pages/Index/Projects/Index";
+import Project from "./pages/Project/Project";
+import Fabrics from "./pages/Fabrics/Fabrics";
+import Rhinestones from "./pages/Rhinestones/Rhinestones";
 
 const { router, href } = typesafeBrowserRouter([
     {
