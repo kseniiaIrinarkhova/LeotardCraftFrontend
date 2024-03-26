@@ -61,7 +61,10 @@ const CustomRouterProvider = ()=>{
                                         },
                                         {
                                             path: "/projects/:id/fabrics",
-                                            Component: Fabrics
+                                            Component: Fabrics,
+                                            loader: async () => {
+                                                return Fabrics.loader(cookies);
+                                            },
                                         },
                                         {
                                             path: '/projects/:id/rhinestones',

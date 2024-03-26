@@ -100,4 +100,36 @@ async function getRhinestoneById(cookies: any, rhinestone_id: string): Promise<I
     }
 }
 
-export { login, register, getUserProjects, getUserProject, getFabricById, getRhinestoneById };
+async function getAllFabrics(cookies: any): Promise<IFabric[]> {
+    try {
+        if (!cookies.is_authorized) throw new Error("You are not authorized");
+        let res = await axios({
+            method: 'GET',
+            url: `${API_URL}/api/fabrics`,
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        console.log(res.data.data)
+        return res.data.data
+    } catch (err) {
+        throw getErrorMessage(err);
+    }
+}
+
+async function getAllRhinestones(cookies: any): Promise<IRhinestone[]> {
+    try {
+        if (!cookies.is_authorized) throw new Error("You are not authorized");
+        let res = await axios({
+            method: 'GET',
+            url: `${API_URL}/api/stones`,
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        return res.data.data
+    } catch (err) {
+        throw getErrorMessage(err);
+    }
+}
+export { login, register, getUserProjects, getUserProject, getFabricById, getRhinestoneById, getAllFabrics,getAllRhinestones };

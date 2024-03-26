@@ -47,6 +47,7 @@ enum RhinestonesType {
 
 /**Interface for rhinestone */
 interface IRhinestone {
+    _id: string;
     /**
      * foreign key to user
      */
@@ -77,6 +78,7 @@ interface IRhinestone {
  * Interface for Fabric model
  */
 interface IFabric{
+    _id: string;
     /**
      * foreign key to user
      */
