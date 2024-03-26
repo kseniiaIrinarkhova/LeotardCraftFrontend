@@ -14,8 +14,8 @@ async function login(formData: any): Promise<String> {
         if (res.data) return res.data.data[0].token
         else throw new Error((res.data.message) ? res.data.message : "Login error")
     } catch (err) {
-        if(err instanceof AxiosError)
-            throw new Error((err.response) ? err.response.data.message: "Error in log in form")
+        if (err instanceof AxiosError)
+            throw new Error((err.response) ? err.response.data.message : "Error in log in form")
         throw new Error("Error in log in form")
     }
 }
@@ -35,18 +35,18 @@ async function register(formData: any): Promise<String> {
         throw new Error("Error in registration form")
     }
 }
-async function getUserProjects(cookies : any) : Promise<IProject[]> {
-    try{
-        if(!cookies.is_authorized) throw new Error("You are not authorized");
+async function getUserProjects(cookies: any): Promise<IProject[]> {
+    try {
+        if (!cookies.is_authorized) throw new Error("You are not authorized");
         let res = await axios({
             method: 'GET',
             url: `${API_URL}/api/projects`,
-            headers :{
+            headers: {
                 'x-auth-token': cookies.token || ""
             }
         })
         return res.data.data
-    }catch(err){
+    } catch (err) {
         throw getErrorMessage(err);
     }
 }
@@ -67,7 +67,7 @@ async function getUserProject(cookies: any): Promise<IProject> {
     }
 }
 
-async function getFabricById(cookies: any, fabric_id:string):Promise<IFabric>{
+async function getFabricById(cookies: any, fabric_id: string): Promise<IFabric> {
     try {
         if (!cookies.is_authorized) throw new Error("You are not authorized");
         let res = await axios({
@@ -147,16 +147,16 @@ async function getUserData(cookies: any): Promise<IUser> {
         throw getErrorMessage(err);
     }
 }
-async function addFabricToProject(project_id:string, fabric_id:string, quantity:string|null, cookies:any):Promise<boolean>{
+async function addFabricToProject(project_id: string, fabric_id: string, quantity: string | null, cookies: any): Promise<boolean> {
     //add project_id to cookies
     cookies.project_id = project_id;
     //get project data
     const projectData = await getUserProject(cookies);
 
-    let fabricsData:{fabric_id:string, quantity:string}[] = [];
+    let fabricsData: { fabric_id: string, quantity: string }[] = [];
     //create array of existing fabric
-    if(projectData.fabrics){
-        fabricsData = projectData.fabrics.map((fab)=>{
+    if (projectData.fabrics) {
+        fabricsData = projectData.fabrics.map((fab) => {
             return {
                 fabric_id: fab.fabric_id,
                 quantity: fab.quantity.toString()
@@ -164,10 +164,10 @@ async function addFabricToProject(project_id:string, fabric_id:string, quantity:
         })
     }
     //add new fabric to array
-    fabricsData.push({fabric_id:fabric_id,quantity: (quantity)? quantity:"0"})
+    fabricsData.push({ fabric_id: fabric_id, quantity: (quantity) ? quantity : "0" })
     try {
         //try to update project with new fabric
-       let res = await axios({
+        let res = await axios({
             method: 'PATCH',
             url: `${API_URL}/api/projects/${project_id}`,
             data: { fabrics: fabricsData },
@@ -182,4 +182,91 @@ async function addFabricToProject(project_id:string, fabric_id:string, quantity:
         throw new Error("Error in adding fabric")
     }
 }
-export { login, register, getUserProjects, getUserProject, getFabricById, getRhinestoneById, getAllFabrics, getAllRhinestones, getUserData, addFabricToProject };
+
+async function createNewFabric(cookies: any, type: string | null, color: string | null): Promise<IFabric> {
+    let fabricData: { type: string, color: string } = {
+        type: (type) ? type : "",
+        color: (color) ? color : ""
+    };
+    try {
+        //try to create new fabric
+        let res = await axios({
+            method: 'POST',
+            url: `${API_URL}/api/fabrics`,
+            data: fabricData,
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        return res.data.data[0];
+    } catch (err) {
+        if (err instanceof AxiosError)
+            throw new Error((err.response) ? err.response.data.message : "Error in adding fabric")
+        throw new Error("Error in adding fabric")
+    }
+}
+
+async function addRhinestoneToProject(project_id: string, rhinestone_id: string, amount: string | null, cookies: any): Promise<boolean> {
+    //add project_id to cookies
+    cookies.project_id = project_id;
+    //get project data
+    const projectData = await getUserProject(cookies);
+
+    let stonesData: { rhinestone_id: string, amount: string }[] = [];
+    //create array of existing fabric
+    if (projectData.rhinestones) {
+        stonesData = projectData.rhinestones.map((stone) => {
+            return {
+                rhinestone_id: stone.rhinestone_id,
+                amount: stone.amount.toString()
+            }
+        })
+    }
+    //add new fabric to array
+    stonesData.push({ rhinestone_id: rhinestone_id, amount: (amount) ? amount : "0" })
+    try {
+        //try to update project with new fabric
+        let res = await axios({
+            method: 'PATCH',
+            url: `${API_URL}/api/projects/${project_id}`,
+            data: { rhinestones: stonesData},
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        return true;
+    } catch (err) {
+        if (err instanceof AxiosError)
+            throw new Error((err.response) ? err.response.data.message : "Error in adding fabric")
+        throw new Error("Error in adding fabric")
+    }
+}
+
+async function createNewRhinestone(cookies: any, type: string | null, color: string | null, size:string|null): Promise<IRhinestone> {
+    let stoneData: { type: string, color: string, size:string } = {
+        type: (type) ? type : "",
+        color: (color) ? color : "",
+        size: (size)? size: "",
+    };
+    try {
+        //try to create new fabric
+        let res = await axios({
+            method: 'POST',
+            url: `${API_URL}/api/stones`,
+            data: stoneData,
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        return res.data.data[0];
+    } catch (err) {
+        if (err instanceof AxiosError)
+            throw new Error((err.response) ? err.response.data.message : "Error in adding fabric")
+        throw new Error("Error in adding fabric")
+    }
+}
+
+export { login, register, getUserProjects, getUserProject, getFabricById, getRhinestoneById,
+     getAllFabrics, getAllRhinestones, getUserData, addFabricToProject, createNewFabric,
+    addRhinestoneToProject, createNewRhinestone
+};

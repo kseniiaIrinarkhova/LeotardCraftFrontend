@@ -27,7 +27,7 @@ const ProjectFabricCard = ({ fabric }: Props) => {
         getFabricInfo();
     },[])
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '10rem' }}>
             <ListGroup variant="flush">
                 <ListGroup.Item>{fabricInfo.type}</ListGroup.Item>
                 <ListGroup.Item>{fabricInfo.color}</ListGroup.Item>

@@ -4,6 +4,7 @@ import { getAllFabrics } from "../../utils/api_connection";
 import { useLoaderData } from "react-router-dom";
 import FabricCard from "../../components/FabricCard/FabricCard";
 import { Col, Container, Row } from "react-bootstrap";
+import NewFabricCard from "../../components/NewFabricCard/NewFabricCard";
 
 type Props = {}
 const loader = makeLoader(async (cookies: any): Promise<IFabric[] | Response> => {
@@ -26,6 +27,9 @@ const fabricCards= fabrics.map((fabric)=>(
 ));
   return (
     <Row xs={1} md={2} className="g-4">
+      <Col key='new'>
+        <NewFabricCard />
+      </Col>
       {fabricCards}
     </Row>
   )

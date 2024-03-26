@@ -27,7 +27,7 @@ const ProjectRhinestoneCard = ({ rhinestone }: Props) => {
         getStoneInfo();
     }, [])
   return (
-      <Card style={{ width: '18rem' }}>
+      <Card style={{ width: '10rem' }}>
           <ListGroup variant="flush">
               <ListGroup.Item>{stoneInfo.type}</ListGroup.Item>
               <ListGroup.Item>{stoneInfo.size}</ListGroup.Item>

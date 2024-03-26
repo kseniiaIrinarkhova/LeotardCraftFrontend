@@ -3,7 +3,8 @@ import { IRhinestone } from "../../vite-env";
 import { getAllRhinestones } from "../../utils/api_connection";
 import { useLoaderData } from "react-router-dom";
 import RhinestoneCard from "../../components/RhinestoneCard/RhinestoneCard";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import NewRhinestoneCard from "../../components/NewRhinestoneCard/NewRhinestoneCard";
 
 type Props = {}
 
@@ -27,6 +28,9 @@ const Rhinestones = (props: Props) => {
   ));
   return (
     <Row xs={1} md={2} className="g-4">
+      <Col key='new'>
+        <NewRhinestoneCard />
+      </Col>
       {rhinestoneCards}
     </Row>
   )

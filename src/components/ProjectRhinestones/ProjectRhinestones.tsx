@@ -1,4 +1,4 @@
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { ProjectRhinestone } from '../../vite-env';
 import ProjectRhinestoneCard from '../ProjectRhinestoneCard/ProjectRhinestoneCard';
 
@@ -10,7 +10,9 @@ const ProjectRhinestones = ({rhinestones}: Props) => {
     if (!rhinestones) rhinestones = [];
     return (
         <Container>
-            {rhinestones.map((stone) => (<ProjectRhinestoneCard key={stone._id} rhinestone={stone} />))}
+            <Row xs={1} md={2} className="g-4">
+                {rhinestones.map((stone) => (<Col key={stone._id}><ProjectRhinestoneCard key={stone._id} rhinestone={stone} /></Col>))}
+            </Row>
         </Container>
     )
 }

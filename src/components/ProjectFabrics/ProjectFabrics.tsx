@@ -1,4 +1,4 @@
-import { Container } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { ProjectFabric } from '../../vite-env'
 import ProjectFabricCard from '../ProjectFabricCard/ProjectFabricCard'
 
@@ -10,7 +10,9 @@ const ProjectFabrics = ({ fabrics }: Props) => {
     if (!fabrics) fabrics = [];
     return (
         <Container>
-            {fabrics.map((fabric) => (<ProjectFabricCard key={fabric._id} fabric={fabric} />))}
+            <Row xs={1} md={2} className="g-4">
+                {fabrics.map((fabric) => (<Col key = {fabric._id} ><ProjectFabricCard fabric={fabric} /></Col>))}
+            </Row>
         </Container>
     )
 }
