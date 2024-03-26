@@ -1,4 +1,4 @@
-import { redirect, typesafeBrowserRouter } from "react-router-typesafe";
+import { makeLoader, redirect, typesafeBrowserRouter } from "react-router-typesafe";
 
 //pages and components
 import App from "./App";
@@ -50,6 +50,11 @@ const CustomRouterProvider = ()=>{
                                 {
                                     path: '/projects/:id',
                                     Component: Project,
+                                    loader: makeLoader(async ({params}) => {
+                                        let newParam = { ...cookies };
+                                        newParam.project_id = params.id
+                                        return Project.loader(newParam);
+                                    }),
                                     children: [
                                         {
                                             index: true, Component: IndexProject 

@@ -188,5 +188,5 @@ type LinkObject = {
 }
 
 //export
-export { IUser,  UserUpdatedData, IRhinestone, RhinestonesType, IFabric, IProject, LinkObject }
+export { IUser, UserUpdatedData, IRhinestone, RhinestonesType, IFabric, IProject, LinkObject, ProjectFabric, ProjectRhinestone }
 

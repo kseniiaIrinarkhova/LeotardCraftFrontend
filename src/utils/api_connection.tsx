@@ -52,4 +52,21 @@ async function getUserProjects(cookies : any) : Promise<IProject[]> {
     }
 }
 
-export { login, register, getUserProjects };
+async function getUserProject(cookies: any): Promise<IProject> {
+    console.log(cookies)
+    try {
+        if (!cookies.is_authorized) throw new Error("You are not authorized");
+        let res = await axios({
+            method: 'GET',
+            url: `${API_URL}/api/projects/${cookies.project_id}`,
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        console.log(res.data.data)
+        return res.data.data[0]
+    } catch (err) {
+        throw getErrorMessage(err);
+    }
+}
+export { login, register, getUserProjects,getUserProject };
