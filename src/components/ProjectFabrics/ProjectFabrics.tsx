@@ -10,7 +10,7 @@ const ProjectFabrics = ({ fabrics }: Props) => {
     if (!fabrics) fabrics = [];
     return (
         <Container>
-            {fabrics.map((fabric) => (<ProjectFabricCard fabric={fabric} />))}
+            {fabrics.map((fabric) => (<ProjectFabricCard key={fabric.fabric_id} fabric={fabric} />))}
         </Container>
     )
 }

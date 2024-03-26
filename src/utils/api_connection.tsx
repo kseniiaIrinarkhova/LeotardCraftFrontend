@@ -1,7 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { getErrorMessage } from './error.util';
 import { IFabric, IProject, IRhinestone } from '../vite-env';
-import { useAuth } from '../context/auth/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -53,7 +52,6 @@ async function getUserProjects(cookies : any) : Promise<IProject[]> {
 }
 
 async function getUserProject(cookies: any): Promise<IProject> {
-    console.log(cookies)
     try {
         if (!cookies.is_authorized) throw new Error("You are not authorized");
         let res = await axios({
@@ -63,7 +61,6 @@ async function getUserProject(cookies: any): Promise<IProject> {
                 'x-auth-token': cookies.token || ""
             }
         })
-        console.log(res.data.data)
         return res.data.data[0]
     } catch (err) {
         throw getErrorMessage(err);
@@ -80,7 +77,6 @@ async function getFabricById(cookies: any, fabric_id:string):Promise<IFabric>{
                 'x-auth-token': cookies.token || ""
             }
         })
-        console.log(res.data.data)
         return res.data.data[0]
     } catch (err) {
         throw getErrorMessage(err);

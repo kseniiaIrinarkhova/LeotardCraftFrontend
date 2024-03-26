@@ -1,4 +1,4 @@
-import { Button, Container, Row, Tab, Tabs } from "react-bootstrap";
+import { Container, Row, Tab, Tabs } from "react-bootstrap";
 import { getProjectContext } from "../../../context/project/project.context";
 import ImgCarousel from "../../../components/ImgCarousel/ImgCarousel";
 import ProjectFabrics from "../../../components/ProjectFabrics/ProjectFabrics";
@@ -29,7 +29,7 @@ const Index = () => {
                             <ProjectRhinestones rhinestones={project.rhinestones} />
                         </Tab>
                         <Tab eventKey="notes" title="notes">
-                            Tab content for notes
+                            Tab content for notes. Will be added later.
                         </Tab>
                     </Tabs>
             </Row>
