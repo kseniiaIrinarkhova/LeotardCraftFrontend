@@ -37,3 +37,4 @@ Project prepared as a capstone project for **Software Engineering Bootcamp** at 
 
 - [React Router Typesafe](https://github.com/fredericoo/react-router-typesafe)
 - [Canva](https://www.canva.com/) - was used for images
+- [JWT Authentication in Typescript with Express](https://dev.to/juliecherner/authentication-with-jwt-tokens-in-typescript-with-express-3gb1)

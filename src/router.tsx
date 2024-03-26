@@ -11,6 +11,7 @@ import IndexProjects from "./pages/Index/Projects/Index";
 import Project from "./pages/Project/Project";
 import Fabrics from "./pages/Fabrics/Fabrics";
 import Rhinestones from "./pages/Rhinestones/Rhinestones";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const { router, href } = typesafeBrowserRouter([
     {
@@ -24,30 +25,37 @@ const { router, href } = typesafeBrowserRouter([
                 Component: Auth
             },
             {
-                path: '/account',
-                Component: Account
-            },
-            {
-                path: '/projects',
-                Component: Projects,
-                children: [
-                    { index: true, Component: IndexProjects },
+                element: <ProtectedRoute />,
+                children:[
                     {
-                        path: '/projects/:id',
-                        Component: Project,
+                        path: '/account',
+                        Component: Account
+                    },
+                    {
+                        path: '/projects',
+                        Component: Projects,
                         children: [
+                            { index: true, Component: IndexProjects },
                             {
-                                path: "/projects/:id/fabrics",
-                                Component: Fabrics
-                            },
-                            {
-                                path: '/projects/:id/rhinestones',
-                                Component: Rhinestones
+                                path: '/projects/:id',
+                                Component: Project,
+                                children: [
+                                    {
+                                        path: "/projects/:id/fabrics",
+                                        Component: Fabrics
+                                    },
+                                    {
+                                        path: '/projects/:id/rhinestones',
+                                        Component: Rhinestones
+                                    }
+                                ],
                             }
-                        ],
+                        ]
                     }
                 ]
+
             }
+            
         ]
     },
    

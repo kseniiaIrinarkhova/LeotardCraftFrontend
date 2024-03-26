@@ -8,9 +8,12 @@ import { router } from './router.tsx'
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import AppProvider from './context/app_context.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <AppProvider>
     <RouterProvider router={router} />
+    </AppProvider>
   </React.StrictMode>,
 )
