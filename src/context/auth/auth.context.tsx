@@ -2,7 +2,6 @@
 import { createContext, useContext, useMemo } from "react"
 import { useCookies } from 'react-cookie';
 import { login, register } from '../../utils/api_connection'
-import ErrorPage from "../../pages/Error/Error";
 import { getErrorMessage } from "../../utils/error.util";
 
 
@@ -31,7 +30,6 @@ const UserProvider: React.FC<IProps> = ({ children }: IProps) => {
         (async () => {
             try {
                 const token = await login(formData);
-                console.log(token);
                 setCookie('token', token);
                 setCookie('is_authorized',true);
                 setCookie('username', formData.username);
