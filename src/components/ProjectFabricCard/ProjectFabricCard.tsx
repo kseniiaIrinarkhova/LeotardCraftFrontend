@@ -26,7 +26,6 @@ const ProjectFabricCard = ({ fabric }: Props) => {
     useEffect(()=>{
         getFabricInfo();
     },[])
-    console.log(fabricInfo)
     return (
         <Card style={{ width: '18rem' }}>
             <ListGroup variant="flush">

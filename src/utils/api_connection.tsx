@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { getErrorMessage } from './error.util';
-import { IFabric, IProject } from '../vite-env';
+import { IFabric, IProject, IRhinestone } from '../vite-env';
 import { useAuth } from '../context/auth/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
@@ -86,4 +86,22 @@ async function getFabricById(cookies: any, fabric_id:string):Promise<IFabric>{
         throw getErrorMessage(err);
     }
 }
-export { login, register, getUserProjects, getUserProject, getFabricById };
+
+
+async function getRhinestoneById(cookies: any, rhinestone_id: string): Promise<IRhinestone> {
+    try {
+        if (!cookies.is_authorized) throw new Error("You are not authorized");
+        let res = await axios({
+            method: 'GET',
+            url: `${API_URL}/api/stones/${rhinestone_id}`,
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        return res.data.data[0]
+    } catch (err) {
+        throw getErrorMessage(err);
+    }
+}
+
+export { login, register, getUserProjects, getUserProject, getFabricById, getRhinestoneById };
