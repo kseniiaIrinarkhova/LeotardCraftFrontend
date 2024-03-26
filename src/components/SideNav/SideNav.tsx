@@ -1,13 +1,16 @@
-import React from 'react'
+import { useContext } from 'react'
 import { Nav, Navbar } from 'react-bootstrap'
 import { IProject } from '../../vite-env'
-import { Link, NavLink } from 'react-router-dom'
+import {  NavLink } from 'react-router-dom'
+import { ProjectContext } from '../../context/project/project.context'
 
 type Props = {
     projects: Array<IProject> | null
 }
 
 const SideNav = ({ projects }: Props) => {
+    const { setProject } = useContext(ProjectContext);
+
     return (
         <Nav className="flex-column">
             <Nav.Item>
@@ -19,7 +22,7 @@ const SideNav = ({ projects }: Props) => {
                         {
                             projects.map((pr: IProject) => (
                                 <Nav.Item key={pr._id}>
-                                    <Nav.Link as={Link} to={`/projects/${pr._id}`}>{pr.title}</Nav.Link>
+                                    <Nav.Link as={NavLink} to={`/projects/${pr._id}`} onClick={() => { setProject({ ...pr}) }}>{pr.title}</Nav.Link>
                                 </Nav.Item>
                             ))
                         }
