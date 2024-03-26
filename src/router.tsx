@@ -1,4 +1,4 @@
-import {  typesafeBrowserRouter } from "react-router-typesafe";
+import { redirect, typesafeBrowserRouter } from "react-router-typesafe";
 
 //pages and components
 import App from "./App";
@@ -12,6 +12,8 @@ import Project from "./pages/Project/Project";
 import Fabrics from "./pages/Fabrics/Fabrics";
 import Rhinestones from "./pages/Rhinestones/Rhinestones";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { makeLoader } from "react-router-typesafe";
+import { useAuth } from "./context/auth/auth.context";
 
 const { router, href } = typesafeBrowserRouter([
     {
@@ -19,14 +21,15 @@ const { router, href } = typesafeBrowserRouter([
         Component: App,
         errorElement: <ErrorPage />,
         children: [
-            {index:true, Component: Index},
+            { index: true, Component: Index },
             {
                 path: '/auth',
                 Component: Auth
             },
+
             {
                 element: <ProtectedRoute />,
-                children:[
+                children: [
                     {
                         path: '/account',
                         Component: Account
@@ -55,10 +58,10 @@ const { router, href } = typesafeBrowserRouter([
                 ]
 
             }
-            
+
         ]
     },
-   
+
 
 ]);
 

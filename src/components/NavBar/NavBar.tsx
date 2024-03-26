@@ -1,10 +1,21 @@
-import { Container, Nav, Navbar } from "react-bootstrap"
+import { Button, Container, Nav, Navbar } from "react-bootstrap"
 import logo from '../../assets/leotardcraft-high-resolution-logo-transparent.png'
-import { Link } from "react-router-dom"
+import { Link, redirect, useNavigate } from "react-router-dom"
+import { useAuth } from "../../context/auth/auth.context"
+import { MouseEvent } from "react"
 
 type Props = {}
 
 const NavBar = (props: Props) => {
+    const { cookies, logOut } = useAuth();
+    const nav = useNavigate();
+
+    function handleLogOut(e: MouseEvent<HTMLButtonElement, MouseEvent>) {
+        e.preventDefault();
+        logOut();
+        nav('/');
+    }
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -26,9 +37,15 @@ const NavBar = (props: Props) => {
                     </Nav>
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                        Signed in as: <Link to='/account'>Username</Link>
-                    </Navbar.Text>
+                    {cookies.is_authorized ?
+                        <Nav className="me-end">
+                            <Navbar.Text>
+                                Welcome, <Link to='/account'>{cookies.username}</Link>
+                            </Navbar.Text>
+                            <Nav.Link onClick={(e)=>{handleLogOut(e as any)}}>Log out</Nav.Link>
+                        </Nav>
+                        : <Nav.Link as={Link} to="/auth" >Login</Nav.Link>
+                    }
                 </Navbar.Collapse>
             </Container>
         </Navbar>
