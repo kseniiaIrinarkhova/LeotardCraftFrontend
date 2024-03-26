@@ -4,8 +4,6 @@ import { IProject } from "../../vite-env";
 import { getUserProjects } from "../../utils/api_connection";
 import SideNav from "../../components/SideNav/SideNav";
 import { Col, Container, Row } from "react-bootstrap";
-import { useContext } from "react";
-import { ProjectContext } from "../../context/project/project.context";
 
 const loader = makeLoader(async (cookies:any): Promise<IProject[] | Response> => {
 try{
