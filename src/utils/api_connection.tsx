@@ -1,4 +1,7 @@
 import axios, { AxiosError } from 'axios';
+import { getErrorMessage } from './error.util';
+import { IProject } from '../vite-env';
+import { useAuth } from '../context/auth/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -33,5 +36,20 @@ async function register(formData: any): Promise<String> {
         throw new Error("Error in registration form")
     }
 }
+async function getUserProjects(cookies : any) : Promise<IProject[]> {
+    try{
+        if(!cookies.is_authorized) throw new Error("You are not authorized");
+        let res = await axios({
+            method: 'GET',
+            url: `${API_URL}/api/projects`,
+            headers :{
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        return res.data.data
+    }catch(err){
+        throw getErrorMessage(err);
+    }
+}
 
-export { login, register };
+export { login, register, getUserProjects };

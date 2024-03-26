@@ -12,58 +12,70 @@ import Project from "./pages/Project/Project";
 import Fabrics from "./pages/Fabrics/Fabrics";
 import Rhinestones from "./pages/Rhinestones/Rhinestones";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import { makeLoader } from "react-router-typesafe";
+import { ProjectProvider } from "./context/project/project.context";
 import { useAuth } from "./context/auth/auth.context";
+import { RouterProvider } from "react-router-dom";
 
-const { router, href } = typesafeBrowserRouter([
-    {
-        path: "/",
-        Component: App,
-        errorElement: <ErrorPage />,
-        children: [
-            { index: true, Component: Index },
-            {
-                path: '/auth',
-                Component: Auth
-            },
+const CustomRouterProvider = ()=>{
+    const {cookies} = useAuth();
 
-            {
-                element: <ProtectedRoute />,
-                children: [
-                    {
-                        path: '/account',
-                        Component: Account
-                    },
-                    {
-                        path: '/projects',
-                        Component: Projects,
-                        children: [
-                            { index: true, Component: IndexProjects },
-                            {
-                                path: '/projects/:id',
-                                Component: Project,
-                                children: [
-                                    {
-                                        path: "/projects/:id/fabrics",
-                                        Component: Fabrics
-                                    },
-                                    {
-                                        path: '/projects/:id/rhinestones',
-                                        Component: Rhinestones
-                                    }
-                                ],
-                            }
-                        ]
-                    }
-                ]
+    const { router, href } = typesafeBrowserRouter([
+        {
+            path: "/",
+            Component: App,
+            errorElement: <ErrorPage />,
+            children: [
+                { index: true, Component: Index },
+                {
+                    path: '/auth',
+                    Component: Auth
+                },
 
-            }
+                {
+                    element: <ProtectedRoute />,
+                    children: [
+                        {
+                            path: '/account',
+                            Component: Account
+                        },
+                        {
+                            path: '/projects',
+                            element: <ProjectProvider><Projects /></ProjectProvider>,
+                            loader: async () => {
+                               return Projects.loader(cookies);
+                            },
+                            children: [
+                                { index: true, Component: IndexProjects },
+                                {
+                                    path: '/projects/:id',
+                                    Component: Project,
+                                    children: [
+                                        {
+                                            path: "/projects/:id/fabrics",
+                                            Component: Fabrics
+                                        },
+                                        {
+                                            path: '/projects/:id/rhinestones',
+                                            Component: Rhinestones
+                                        }
+                                    ],
+                                }
+                            ]
+                        }
+                    ]
 
-        ]
-    },
+                }
+
+            ]
+        },
 
 
-]);
+    ]);
+return (
+    <RouterProvider router={router} />
+);
 
+}
 
-export { router, href }
+export default CustomRouterProvider;
+
