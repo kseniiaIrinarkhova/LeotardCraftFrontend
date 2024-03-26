@@ -1,8 +1,9 @@
-import { Container, Row, Tab, Tabs } from "react-bootstrap";
+import { Button, Container, Row, Tab, Tabs } from "react-bootstrap";
 import { getProjectContext } from "../../../context/project/project.context";
 import ImgCarousel from "../../../components/ImgCarousel/ImgCarousel";
 import ProjectFabrics from "../../../components/ProjectFabrics/ProjectFabrics";
 import ProjectRhinestones from "../../../components/ProjectRhinestones/ProjectRhinestones";
+import { Link } from "react-router-dom";
 
 const Index = () => {
     let project = getProjectContext();
@@ -20,9 +21,11 @@ const Index = () => {
                         className="mb-3"
                     >
                         <Tab eventKey="fabrics" title="fabrics">
+                            <Link to={`/projects/${project._id}/fabrics`}>Add new fabric to project</Link>
                             <ProjectFabrics fabrics={project.fabrics}/>
                         </Tab>
                         <Tab eventKey="rhinestones" title="rhinestones">
+                            <Link to={`/projects/${project._id}/rhinestones`}>Add new rhinestones to project</Link>
                             <ProjectRhinestones rhinestones={project.rhinestones} />
                         </Tab>
                         <Tab eventKey="notes" title="notes">
