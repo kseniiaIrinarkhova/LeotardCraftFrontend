@@ -139,6 +139,7 @@ interface IProject {
  * Type for rhinestones in project
  */
 type ProjectRhinestone = {
+    _id:string;
     /**
          * foreign key to Rhinestone
          */
@@ -157,6 +158,7 @@ type ProjectRhinestone = {
  * Type for fabrics in project
  */
 type ProjectFabric = {
+    _id:string;
     /**
          * foreign key to Fabric
          */

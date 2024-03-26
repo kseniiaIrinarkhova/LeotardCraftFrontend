@@ -147,10 +147,14 @@ async function getUserData(cookies: any): Promise<IUser> {
         throw getErrorMessage(err);
     }
 }
-async function addFabricToProject(project_id:string, fabric_id:string, quantity:string|null, cookies:any){
+async function addFabricToProject(project_id:string, fabric_id:string, quantity:string|null, cookies:any):Promise<boolean>{
+    //add project_id to cookies
     cookies.project_id = project_id;
+    //get project data
     const projectData = await getUserProject(cookies);
+
     let fabricsData:{fabric_id:string, quantity:string}[] = [];
+    //create array of existing fabric
     if(projectData.fabrics){
         fabricsData = projectData.fabrics.map((fab)=>{
             return {
@@ -159,10 +163,11 @@ async function addFabricToProject(project_id:string, fabric_id:string, quantity:
             }
         })
     }
+    //add new fabric to array
     fabricsData.push({fabric_id:fabric_id,quantity: (quantity)? quantity:"0"})
-    console.log(fabricsData)
     try {
-        let res = await axios({
+        //try to update project with new fabric
+       let res = await axios({
             method: 'PATCH',
             url: `${API_URL}/api/projects/${project_id}`,
             data: { fabrics: fabricsData },
@@ -170,7 +175,7 @@ async function addFabricToProject(project_id:string, fabric_id:string, quantity:
                 'x-auth-token': cookies.token || ""
             }
         })
-        console.log(res.data)
+        return true;
     } catch (err) {
         if (err instanceof AxiosError)
             throw new Error((err.response) ? err.response.data.message : "Error in adding fabric")

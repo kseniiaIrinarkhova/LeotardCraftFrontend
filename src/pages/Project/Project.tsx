@@ -6,7 +6,6 @@ import { IProject } from "../../vite-env";
 
 
 const loader = makeLoader(async (cookies:any): Promise<IProject | Response> => {
-    
     try {
         const project = await getUserProject(cookies);
         return project

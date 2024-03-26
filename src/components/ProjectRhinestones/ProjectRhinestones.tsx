@@ -10,7 +10,7 @@ const ProjectRhinestones = ({rhinestones}: Props) => {
     if (!rhinestones) rhinestones = [];
     return (
         <Container>
-            {rhinestones.map((stone) => (<ProjectRhinestoneCard key={stone.rhinestone_id} rhinestone={stone} />))}
+            {rhinestones.map((stone) => (<ProjectRhinestoneCard key={stone._id} rhinestone={stone} />))}
         </Container>
     )
 }

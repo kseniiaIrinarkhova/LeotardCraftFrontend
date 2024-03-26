@@ -18,8 +18,8 @@ import { useAuth } from "./context/auth/auth.context";
 import { RouterProvider } from "react-router-dom";
 import { addFabricToProject } from "./utils/api_connection";
 
-const CustomRouterProvider = ()=>{
-    const {cookies} = useAuth();
+const CustomRouterProvider = () => {
+    const { cookies } = useAuth();
 
     const { router, href } = typesafeBrowserRouter([
         {
@@ -47,21 +47,21 @@ const CustomRouterProvider = ()=>{
                             path: '/projects',
                             element: <ProjectProvider><Projects /></ProjectProvider>,
                             loader: async () => {
-                               return Projects.loader(cookies);
+                                return Projects.loader(cookies);
                             },
                             children: [
                                 { index: true, Component: IndexProjects },
                                 {
                                     path: '/projects/:id',
                                     Component: Project,
-                                    loader: makeLoader(async ({params}) => {
+                                    loader: makeLoader(async ({ params }) => {
                                         let newParam = { ...cookies };
                                         newParam.project_id = params.id
                                         return Project.loader(newParam);
                                     }),
                                     children: [
                                         {
-                                            index: true, Component: IndexProject 
+                                            index: true, Component: IndexProject
                                         },
                                         {
                                             path: "/projects/:id/fabrics",
@@ -80,13 +80,19 @@ const CustomRouterProvider = ()=>{
                                                 //form sends stateCode parameters
                                                 let fabric_id = url.searchParams.get("fabric_id");
                                                 let quantity = url.searchParams.get("quantity");
-                                                
-                                                if(fabric_id !== null) {
-                                                    await addFabricToProject(project_id, fabric_id ,quantity, cookies);
-                                                console.log(`${fabric_id} and ${quantity}`)
-                                            }
-                                                //redirect to state parks
-                                                return redirect(`/projects/${project_id}`);
+
+                                                if (fabric_id !== null) {
+                                                    let result = await addFabricToProject(project_id, fabric_id, quantity, cookies)
+                                                    if(result){
+                                                        //redirect to project
+                                                        return redirect(`/projects`);
+                                                    }
+                                                    else{
+                                                        return redirect(`/`);
+                                                    } 
+                                                    
+                                                }
+
                                             })
                                         },
                                         {
@@ -109,9 +115,9 @@ const CustomRouterProvider = ()=>{
 
 
     ]);
-return (
-    <RouterProvider router={router} />
-);
+    return (
+        <RouterProvider router={router} />
+    );
 
 }
 
