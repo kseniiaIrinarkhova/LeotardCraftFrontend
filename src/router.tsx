@@ -8,6 +8,7 @@ import Auth from "./pages/Auth/Auth";
 import Account from "./pages/Account/Account";
 import Projects from "./pages/Projects/Projects";
 import IndexProjects from "./pages/Index/Projects/Index";
+import IndexProject from './pages/Index/Project/Index';
 import Project from "./pages/Project/Project";
 import Fabrics from "./pages/Fabrics/Fabrics";
 import Rhinestones from "./pages/Rhinestones/Rhinestones";
@@ -50,6 +51,9 @@ const CustomRouterProvider = ()=>{
                                     path: '/projects/:id',
                                     Component: Project,
                                     children: [
+                                        {
+                                            index: true, Component: IndexProject 
+                                        },
                                         {
                                             path: "/projects/:id/fabrics",
                                             Component: Fabrics

@@ -66,11 +66,11 @@ interface IRhinestone {
     /**
      * Additional links for resources
      */
-    links: { url: String }[];
+    links: LinkObject[];
     /**
      * Links to images
      */
-    imgs: { url: String }[];
+    imgs: LinkObject[];
 }
 
 /**
@@ -92,11 +92,11 @@ interface IFabric{
     /**
      * Additional links for resources
      */
-    links: { url: String }[];
+    links: LinkObject[];
     /**
      * Links to images
      */
-    imgs: { url: String }[];
+    imgs: LinkObject[];
 }
 
 /**
@@ -130,7 +130,7 @@ interface IProject {
     /**
      * Links to images
      */
-    imgs: { url: String }[];
+    imgs: LinkObject[];
 }
 
 /**
@@ -182,7 +182,11 @@ type Note = {
     created_date: Date;
 }
 
+type LinkObject = {
+    _id: string;
+    url: string;
+}
 
 //export
-export { IUser,  UserUpdatedData, IRhinestone, RhinestonesType, IFabric, IProject }
+export { IUser,  UserUpdatedData, IRhinestone, RhinestonesType, IFabric, IProject, LinkObject }
 
