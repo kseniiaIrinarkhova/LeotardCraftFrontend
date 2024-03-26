@@ -3,7 +3,7 @@ import { IFabric } from "../../vite-env";
 import { getAllFabrics } from "../../utils/api_connection";
 import { useLoaderData } from "react-router-dom";
 import FabricCard from "../../components/FabricCard/FabricCard";
-import { CardGroup } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 type Props = {}
 const loader = makeLoader(async (cookies: any): Promise<IFabric[] | Response> => {
@@ -18,15 +18,16 @@ const loader = makeLoader(async (cookies: any): Promise<IFabric[] | Response> =>
 
 const Fabrics = (props: Props) => {
   let fabrics = useLoaderData() as IFabric[];
-  console.log(fabrics)
   if(!fabrics) fabrics=[];
 const fabricCards= fabrics.map((fabric)=>(
-  <FabricCard key={fabric._id} fabric={fabric}/>
+  <Col key={fabric._id}>
+  <FabricCard  fabric={fabric}/>
+  </Col>
 ));
   return (
-    <CardGroup>
+    <Row xs={1} md={2} className="g-4">
       {fabricCards}
-    </CardGroup>
+    </Row>
   )
 }
 

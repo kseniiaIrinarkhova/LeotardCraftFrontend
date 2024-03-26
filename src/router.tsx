@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { ProjectProvider } from "./context/project/project.context";
 import { useAuth } from "./context/auth/auth.context";
 import { RouterProvider } from "react-router-dom";
+import { addFabricToProject } from "./utils/api_connection";
 
 const CustomRouterProvider = ()=>{
     const {cookies} = useAuth();
@@ -37,6 +38,9 @@ const CustomRouterProvider = ()=>{
                     children: [
                         {
                             path: '/account',
+                            loader: async () => {
+                                return Account.loader(cookies);
+                            },
                             Component: Account
                         },
                         {
@@ -64,11 +68,33 @@ const CustomRouterProvider = ()=>{
                                             Component: Fabrics,
                                             loader: async () => {
                                                 return Fabrics.loader(cookies);
-                                            },
+                                            }
+                                        },
+                                        {
+                                            path: "/projects/:id/fabrics/add",
+                                            loader: makeLoader(async ({ request }) => {
+                                                //get url from get method of form
+                                                let url = new URL(request.url);
+                                                let project_id = url.pathname.split('/')[2]
+
+                                                //form sends stateCode parameters
+                                                let fabric_id = url.searchParams.get("fabric_id");
+                                                let quantity = url.searchParams.get("quantity");
+                                                
+                                                if(fabric_id !== null) {
+                                                    await addFabricToProject(project_id, fabric_id ,quantity, cookies);
+                                                console.log(`${fabric_id} and ${quantity}`)
+                                            }
+                                                //redirect to state parks
+                                                return redirect(`/projects/${project_id}`);
+                                            })
                                         },
                                         {
                                             path: '/projects/:id/rhinestones',
-                                            Component: Rhinestones
+                                            Component: Rhinestones,
+                                            loader: async () => {
+                                                return Rhinestones.loader(cookies);
+                                            },
                                         }
                                     ],
                                 }

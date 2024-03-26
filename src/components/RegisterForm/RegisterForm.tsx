@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
-import { Form as RouterForm, useNavigate } from 'react-router-dom'
+import { Button, Container, Form } from 'react-bootstrap'
+import { Link, Form as RouterForm, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/auth/auth.context'
 
 type Props = {
@@ -41,8 +41,8 @@ const RegisterForm = ({ setNewUser }: Props) => {
     };
 
     return (
-        <>
-            <Form as={RouterForm} onSubmit={(e) => { onSubmit(e) }}>
+        <Container style={{ width: '25rem' }}>
+            <Form  as={RouterForm} onSubmit={(e) => { onSubmit(e) }}>
                 <Form.Group className="mb-3" controlId="register_username">
                     <Form.Label>Username</Form.Label>
                     <Form.Control placeholder="Enter username" name='username' onChange={(e) => { onChange(e as any)}} />
@@ -75,9 +75,9 @@ const RegisterForm = ({ setNewUser }: Props) => {
                 </Button>
             </Form>
             <p>
-                Already have an account? <Button onClick={handleClick}>Sign In</Button>
+                Already have an account? <Link to="" onClick={handleClick}>Sign In</Link>
             </p>
-        </>
+        </Container>
     )
 }
 

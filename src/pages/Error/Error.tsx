@@ -1,4 +1,6 @@
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+import NavBar from "../../components/NavBar/NavBar";
+import { Container } from "react-bootstrap";
 
 export default function ErrorPage() {
     const error = useRouteError();
@@ -9,13 +11,14 @@ export default function ErrorPage() {
 
     return (
         <>
-            <div className="main">
+            <NavBar />
+            <Container>
                 <h1>Oops!</h1>
                 <p>Sorry, an unexpected error has occurred.</p>
                 <p>
-                    <i>{errorMessage}</i>
+                    {errorMessage}
                 </p>
-            </div>
+            </Container>
         </>
 
     );
