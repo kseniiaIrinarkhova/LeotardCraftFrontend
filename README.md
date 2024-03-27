@@ -38,6 +38,7 @@ Interfases
 2. Create .env file according to .env.example structure.
 4. Add to `VITE_QUOTE_API_KEY` variable API Key from [API ninjas](https://api-ninjas.com/). If you do not have an accont you could create it for free.
 3. To run dev scripts use command `npm run dev`
+4. For deployment change environmental variable `VITE_API_URL` to path for backend.
 
 # User Guide
 To be able to work with application user should register/authorize in it. `LogIn` Navigation menu provide opportunity to login or register in application.
