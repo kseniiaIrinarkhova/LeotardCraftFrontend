@@ -1,4 +1,4 @@
-import { Card, ListGroup } from 'react-bootstrap'
+import { Badge, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { IFabric, ProjectFabric } from '../../vite-env'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../context/auth/auth.context'
@@ -27,11 +27,11 @@ const ProjectFabricCard = ({ fabric }: Props) => {
         getFabricInfo();
     },[])
     return (
-        <Card style={{ width: '10rem' }}>
+        <Card style={{ width: '13rem' }}>
             <ListGroup variant="flush">
-                <ListGroup.Item>{fabricInfo.type}</ListGroup.Item>
-                <ListGroup.Item>{fabricInfo.color}</ListGroup.Item>
-                <ListGroup.Item>{fabric.quantity}</ListGroup.Item>
+                <ListGroup.Item><Row><Col xs={5}><Badge bg="secondary">Type:</Badge></Col><Col> {fabricInfo.type}</Col></Row></ListGroup.Item>
+                <ListGroup.Item><Row><Col xs={5}><Badge bg="secondary">Color:</Badge></Col><Col> {fabricInfo.color}</Col></Row></ListGroup.Item>
+                <ListGroup.Item><Row><Col xs={5}><Badge bg="secondary">Quantity:</Badge></Col><Col> {fabric.quantity}</Col></Row></ListGroup.Item>
             </ListGroup>
         </Card>
     )

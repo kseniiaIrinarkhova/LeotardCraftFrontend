@@ -1,4 +1,4 @@
-import { makeLoader, redirect, typesafeBrowserRouter } from "react-router-typesafe";
+import { makeAction, makeLoader,  typesafeBrowserRouter } from "react-router-typesafe";
 
 //pages and components
 import App from "./App";
@@ -15,8 +15,9 @@ import Rhinestones from "./pages/Rhinestones/Rhinestones";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { ProjectProvider } from "./context/project/project.context";
 import { useAuth } from "./context/auth/auth.context";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider, redirect } from "react-router-dom";
 import { addFabricToProject, addRhinestoneToProject, createNewFabric, createNewProject, createNewRhinestone } from "./utils/api_connection";
+import NewProjectForm from "./components/NewProjectForm/NewProjectForm";
 
 const CustomRouterProvider = () => {
     const { cookies } = useAuth();
@@ -49,6 +50,13 @@ const CustomRouterProvider = () => {
                             loader: async () => {
                                 return Projects.loader(cookies);
                             },
+                            action: makeLoader(async ({ request }) => {
+                                let formData = await request.formData();
+                                //get url from get method of form
+                                let title = formData.get("title");
+                                const project = await createNewProject(cookies,(title)? title.toString():"");
+                                return project;
+                            }),
                             children: [
                                 { index: true, Component: IndexProjects },
                                 {
@@ -181,22 +189,7 @@ const CustomRouterProvider = () => {
                                         },
                                     ],
                                 },
-                                {
-                                    path: "/projects/new",
-                                    loader: makeLoader(async({request})=>{
-                                        //get url from get method of form
-                                        let url = new URL(request.url);                                        
-                                        let title = url.searchParams.get("title");
-                                        const project = await createNewProject(cookies,title);
-                                        if(project){
-                                            //redirect to project
-                                            return redirect(`/projects/${project._id}`);
-                                        }
-                                        else{
-                                            return redirect(`/`);
-                                        }
-                                    })
-                                }
+                                
                             ]
                         }
                     ]

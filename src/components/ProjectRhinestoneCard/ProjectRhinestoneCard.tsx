@@ -1,4 +1,4 @@
-import { Card, ListGroup } from 'react-bootstrap'
+import { Badge, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { IRhinestone, ProjectRhinestone } from '../../vite-env'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../context/auth/auth.context'
@@ -27,12 +27,12 @@ const ProjectRhinestoneCard = ({ rhinestone }: Props) => {
         getStoneInfo();
     }, [])
   return (
-      <Card style={{ width: '10rem' }}>
+      <Card style={{ width: '12rem' }}>
           <ListGroup variant="flush">
-              <ListGroup.Item>{stoneInfo.type}</ListGroup.Item>
-              <ListGroup.Item>{stoneInfo.size}</ListGroup.Item>
-              <ListGroup.Item>{stoneInfo.color}</ListGroup.Item>
-              <ListGroup.Item>{rhinestone.amount}</ListGroup.Item>
+              <ListGroup.Item><Row><Col xs={5}><Badge bg="secondary">Type:</Badge></Col><Col> {stoneInfo.type}</Col></Row></ListGroup.Item>
+              <ListGroup.Item><Row><Col xs={5}><Badge bg="secondary">Size:</Badge></Col><Col> {stoneInfo.size}</Col></Row> </ListGroup.Item>
+              <ListGroup.Item><Row><Col xs={5}><Badge bg="secondary">Color:</Badge></Col><Col> {stoneInfo.color}</Col></Row> </ListGroup.Item>
+              <ListGroup.Item><Row><Col xs={5}><Badge bg="secondary">Amount:</Badge></Col><Col> {rhinestone.amount}</Col></Row> </ListGroup.Item>
           </ListGroup>
       </Card>
   )

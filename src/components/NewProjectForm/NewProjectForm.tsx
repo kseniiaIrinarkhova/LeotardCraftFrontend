@@ -5,7 +5,7 @@ type Props = {}
 
 const NewProjectForm = (props: Props) => {
   return (
-      <ReactForm method="get" action={`/projects/new`}>
+      <ReactForm method="post" action={`/projects`}>
           <Row><p className="text-center">Create a new project</p></Row>
           <Row xs={3}>
               <Col xs={8}>
