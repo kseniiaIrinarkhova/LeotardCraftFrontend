@@ -35,7 +35,7 @@ const RegisterForm = ({ setNewUser }: Props) => {
         }
         else {
             signUp(formData);
-            nav('/projects')
+            nav('/account')
         }
 
     };

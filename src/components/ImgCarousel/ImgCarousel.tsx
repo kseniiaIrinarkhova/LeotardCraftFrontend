@@ -1,6 +1,5 @@
 import { LinkObject } from '../../vite-env'
-import { Carousel} from 'react-bootstrap'
-import Image from '../Image/Image'
+import { Carousel, Image} from 'react-bootstrap'
 
 type Props = {
     imgs: LinkObject[]
@@ -8,10 +7,10 @@ type Props = {
 
 const ImgCarousel = ({imgs}: Props) => {
   return (
-      <Carousel className='d-block h-30 w-30'>
+    <Carousel className="text-center" style={{ minHeight: "30vh", maxHeight: "30vh" }}>
         {imgs.map((img)=>(
             <Carousel.Item className='h-25' key={img._id}>
-                <Image className='h-25' src={img.url} />
+            <Image src={img.url} style={{ maxHeight: "30vh" }} thumbnail />
             </Carousel.Item>
         ))}
           
