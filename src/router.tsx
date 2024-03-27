@@ -17,7 +17,6 @@ import { ProjectProvider } from "./context/project/project.context";
 import { useAuth } from "./context/auth/auth.context";
 import { RouterProvider, redirect } from "react-router-dom";
 import { addFabricToProject, addRhinestoneToProject, createNewFabric, createNewProject, createNewRhinestone } from "./utils/api_connection";
-import NewProjectForm from "./components/NewProjectForm/NewProjectForm";
 
 const CustomRouterProvider = () => {
     const { cookies } = useAuth();
@@ -58,7 +57,10 @@ const CustomRouterProvider = () => {
                                 return project;
                             }),
                             children: [
-                                { index: true, Component: IndexProjects },
+                                { index: true, 
+                                    Component: IndexProjects,
+                                    loader: IndexProjects.loader
+                                 },
                                 {
                                     path: '/projects/:id',
                                     Component: Project,
