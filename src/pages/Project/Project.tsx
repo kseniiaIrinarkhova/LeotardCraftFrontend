@@ -2,10 +2,12 @@ import { Outlet } from "react-router-dom"
 import { makeLoader, useLoaderData } from "react-router-typesafe";
 import { getUserProject } from "../../utils/api_connection";
 import { IProject } from "../../vite-env";
+import { useContext, useEffect } from "react";
+import { ProjectContext } from "../../context/project/project.context";
 
 
 
-const loader = makeLoader(async (cookies:any): Promise<IProject | Response> => {
+const loader = makeLoader(async (cookies: any): Promise<IProject | Response> => {
     try {
         const project = await getUserProject(cookies);
         return project
@@ -17,6 +19,10 @@ const loader = makeLoader(async (cookies:any): Promise<IProject | Response> => {
 
 const Project = () => {
     let project = useLoaderData() as IProject;
+    const { setProject } = useContext(ProjectContext);
+    useEffect(() => {
+        setProject({ ...project })
+    }, []);
 
     return (<>
         <h1 className="text-center">{project.title}</h1>
@@ -24,6 +30,6 @@ const Project = () => {
     </>
     )
 }
-Project.loader=loader;
+Project.loader = loader;
 
 export default Project

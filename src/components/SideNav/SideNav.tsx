@@ -3,6 +3,7 @@ import { Nav, Navbar } from 'react-bootstrap'
 import { IProject } from '../../vite-env'
 import {  NavLink } from 'react-router-dom'
 import { ProjectContext } from '../../context/project/project.context'
+import NewProjectForm from '../NewProjectForm/NewProjectForm'
 
 type Props = {
     projects: Array<IProject> | null
@@ -14,7 +15,7 @@ const SideNav = ({ projects }: Props) => {
     return (
         <Nav className="flex-column">
             <Nav.Item>
-                <Nav.Link href="/newProject">Create New Project</Nav.Link>
+                <NewProjectForm/>
             </Nav.Item>
             {
                 (projects !== null && projects.length) ? (

@@ -266,7 +266,26 @@ async function createNewRhinestone(cookies: any, type: string | null, color: str
     }
 }
 
+async function createNewProject(cookies: any, title: string | null,) : Promise<IProject>{
+    try {
+        //try to create new project
+        let res = await axios({
+            method: 'POST',
+            url: `${API_URL}/api/projects`,
+            data: {title: (title)? title: "" },
+            headers: {
+                'x-auth-token': cookies.token || ""
+            }
+        })
+        return res.data.data[0];
+    } catch (err) {
+        if (err instanceof AxiosError)
+            throw new Error((err.response) ? err.response.data.message : "Error in adding fabric")
+        throw new Error("Error in adding fabric")
+    }
+}
+
 export { login, register, getUserProjects, getUserProject, getFabricById, getRhinestoneById,
      getAllFabrics, getAllRhinestones, getUserData, addFabricToProject, createNewFabric,
-    addRhinestoneToProject, createNewRhinestone
+    addRhinestoneToProject, createNewRhinestone, createNewProject
 };

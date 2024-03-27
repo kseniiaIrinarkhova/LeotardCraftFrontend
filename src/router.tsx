@@ -16,7 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { ProjectProvider } from "./context/project/project.context";
 import { useAuth } from "./context/auth/auth.context";
 import { RouterProvider } from "react-router-dom";
-import { addFabricToProject, addRhinestoneToProject, createNewFabric, createNewRhinestone } from "./utils/api_connection";
+import { addFabricToProject, addRhinestoneToProject, createNewFabric, createNewProject, createNewRhinestone } from "./utils/api_connection";
 
 const CustomRouterProvider = () => {
     const { cookies } = useAuth();
@@ -85,7 +85,7 @@ const CustomRouterProvider = () => {
                                                     let result = await addFabricToProject(project_id, fabric_id, quantity, cookies)
                                                     if(result){
                                                         //redirect to project
-                                                        return redirect(`/projects/${project_id}`);
+                                                        return redirect(`/projects`);
                                                     }
                                                     else{
                                                         return redirect(`/`);
@@ -112,7 +112,7 @@ const CustomRouterProvider = () => {
                                                 let result = await addFabricToProject(project_id, newFabric._id, quantity, cookies)
                                                     if (result) {
                                                         //redirect to project
-                                                        return redirect(`/projects/${project_id}`);
+                                                        return redirect(`/projects`);
                                                     }
                                                     else {
                                                         return redirect(`/`);
@@ -142,7 +142,7 @@ const CustomRouterProvider = () => {
                                                     let result = await addRhinestoneToProject(project_id, rhinestone_id, amount, cookies)
                                                     if (result) {
                                                         //redirect to project
-                                                        return redirect(`/projects/${project_id}`);
+                                                        return redirect(`/projects`);
                                                     }
                                                     else {
                                                         return redirect(`/`);
@@ -170,7 +170,7 @@ const CustomRouterProvider = () => {
                                                 let result = await addRhinestoneToProject(project_id, newStone._id, amount, cookies)
                                                 if (result) {
                                                     //redirect to project
-                                                    return redirect(`/projects/${project_id}`);
+                                                    return redirect(`/projects`);
                                                 }
                                                 else {
                                                     return redirect(`/`);
@@ -180,6 +180,22 @@ const CustomRouterProvider = () => {
                                             })
                                         },
                                     ],
+                                },
+                                {
+                                    path: "/projects/new",
+                                    loader: makeLoader(async({request})=>{
+                                        //get url from get method of form
+                                        let url = new URL(request.url);                                        
+                                        let title = url.searchParams.get("title");
+                                        const project = await createNewProject(cookies,title);
+                                        if(project){
+                                            //redirect to project
+                                            return redirect(`/projects/${project._id}`);
+                                        }
+                                        else{
+                                            return redirect(`/`);
+                                        }
+                                    })
                                 }
                             ]
                         }

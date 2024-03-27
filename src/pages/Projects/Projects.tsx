@@ -21,7 +21,7 @@ const Projects = () => {
     return (
             <Container>
                 <Row>
-                    <Col xs={2}><SideNav projects={(projects !== null) ? projects : []} /></Col>
+                    <Col xs={3}><SideNav projects={(projects !== null) ? projects : []} /></Col>
                     <Col><Outlet/></Col>
                 </Row>
             </Container>
