@@ -15,7 +15,6 @@ async function getQuotation() {
                 'x-api-key': import.meta.env.VITE_QUOTE_API_KEY || ""
             }
         })
-        console.log(res.data)
         return res.data[0]
     } catch (err) {
         throw getErrorMessage(err);

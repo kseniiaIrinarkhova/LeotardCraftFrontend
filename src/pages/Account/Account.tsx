@@ -1,16 +1,19 @@
-import { makeLoader, useLoaderData } from "react-router-typesafe";
+import { makeLoader, redirect, useLoaderData } from "react-router-typesafe";
 import { IUser } from "../../vite-env";
 import { getUserData } from "../../utils/api_connection";
 import { Container, Row, Table } from "react-bootstrap";
 
 type Props = {}
 const loader = makeLoader(async (cookies: any): Promise<IUser | Response> => {
+  console.log("Account loader")
+  console.log(cookies)
+  // if(!cookies.is_authorized) throw new Error("You are not auth")
   try {
     const user = await getUserData(cookies);
     return user
   }
   catch (err) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Error("Error in account page")
   }
 });
 

@@ -29,7 +29,7 @@ const LoginForm = ({ setNewUser }: Props) => {
         e.preventDefault();
         try {
             logIn(formData);
-            nav('/projects')
+            nav('/account')
         } catch (error) {
             throw (error)
         }
