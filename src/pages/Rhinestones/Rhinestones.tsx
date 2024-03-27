@@ -6,7 +6,7 @@ import RhinestoneCard from "../../components/RhinestoneCard/RhinestoneCard";
 import { Col, Row } from "react-bootstrap";
 import NewRhinestoneCard from "../../components/NewRhinestoneCard/NewRhinestoneCard";
 
-type Props = {}
+
 
 const loader = makeLoader(async (cookies: any): Promise<IRhinestone[] | Response> => {
   try {
@@ -14,11 +14,11 @@ const loader = makeLoader(async (cookies: any): Promise<IRhinestone[] | Response
     return rhinestones
   }
   catch (err) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Error("Unexpected Error. Rhinestones Data Not Found");
   }
 });
 
-const Rhinestones = (props: Props) => {
+const Rhinestones = () => {
   let rhinestones = useLoaderData() as IRhinestone[];
   if (!rhinestones) rhinestones = [];
   const rhinestoneCards = rhinestones.map((rhinestone) => (

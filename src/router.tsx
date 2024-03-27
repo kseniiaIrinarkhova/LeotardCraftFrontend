@@ -1,4 +1,4 @@
-import { makeAction, makeLoader, typesafeBrowserRouter } from "react-router-typesafe";
+import { makeLoader, typesafeBrowserRouter } from "react-router-typesafe";
 
 //pages and components
 import App from "./App";
@@ -17,7 +17,6 @@ import { ProjectProvider } from "./context/project/project.context";
 import { useAuth } from "./context/auth/auth.context";
 import { RouterProvider, redirect } from "react-router-dom";
 import { addFabricToProject, addRhinestoneToProject, createNewFabric, createNewProject, createNewRhinestone } from "./utils/api_connection";
-import nonAuth from "./pages/nonAuth";
 import ErrorComponent from "./components/ErrorComponent/ErrorCoponent";
 
 const CustomRouterProvider = () => {
@@ -207,6 +206,8 @@ const CustomRouterProvider = () => {
 
 
     ]);
+
+    console.log(href)
     return (
         <RouterProvider router={router} />
     );

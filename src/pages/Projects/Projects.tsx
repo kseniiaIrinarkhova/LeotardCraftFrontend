@@ -11,7 +11,7 @@ try{
     return projects
 }
     catch(err){
-    throw new Response("Not Found", { status: 404 });
+    throw new Error("Unexpected Error. User Projects Data Not Found");
     }
 });
 

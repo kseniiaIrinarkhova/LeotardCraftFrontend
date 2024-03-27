@@ -3,21 +3,21 @@ import { IFabric } from "../../vite-env";
 import { getAllFabrics } from "../../utils/api_connection";
 import { useLoaderData } from "react-router-dom";
 import FabricCard from "../../components/FabricCard/FabricCard";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import NewFabricCard from "../../components/NewFabricCard/NewFabricCard";
 
-type Props = {}
+
 const loader = makeLoader(async (cookies: any): Promise<IFabric[] | Response> => {
   try {
     const fabrics = await getAllFabrics(cookies);
     return fabrics
   }
   catch (err) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Error("Unexpected Error. Fabrics Data Not Found");
   }
 });
 
-const Fabrics = (props: Props) => {
+const Fabrics = () => {
   let fabrics = useLoaderData() as IFabric[];
   if(!fabrics) fabrics=[];
 const fabricCards= fabrics.map((fabric)=>(

@@ -11,7 +11,7 @@ const Index = () => {
     return (
         <>
         <Container>
-            <Row className="h-35">
+                <Row style={{ minHeight: '40vh' }}>
                     <h4>Project Images</h4>
                     {(project.imgs && project.imgs.length) ? <ImgCarousel imgs={project.imgs} /> : <p>Here could be project images</p>}
             </Row>
