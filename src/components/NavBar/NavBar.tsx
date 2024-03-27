@@ -1,12 +1,12 @@
-import { Button, Container, Nav, Navbar } from "react-bootstrap"
-import logo from '../../assets/leotardcraft-high-resolution-logo-transparent.png'
-import { Link, redirect, useNavigate } from "react-router-dom"
+import { Container, Nav, Navbar } from "react-bootstrap"
+import logo from '../../assets/logo.svg'
+import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/auth/auth.context"
 import { MouseEvent } from "react"
 
-type Props = {}
 
-const NavBar = (props: Props) => {
+
+const NavBar = () => {
     const { cookies, logOut } = useAuth();
     const nav = useNavigate();
 

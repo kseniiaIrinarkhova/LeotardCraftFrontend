@@ -1,9 +1,9 @@
 import { Button, Col, Form, Row } from "react-bootstrap"
 import {  Form as ReactForm } from "react-router-dom"
 
-type Props = {}
 
-const NewProjectForm = (props: Props) => {
+
+const NewProjectForm = () => {
   return (
       <ReactForm method="post" action={`/projects`}>
           <Row><p className="text-center">Create a new project</p></Row>

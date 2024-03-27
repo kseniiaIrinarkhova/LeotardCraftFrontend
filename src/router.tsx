@@ -18,6 +18,7 @@ import { useAuth } from "./context/auth/auth.context";
 import { RouterProvider, redirect } from "react-router-dom";
 import { addFabricToProject, addRhinestoneToProject, createNewFabric, createNewProject, createNewRhinestone } from "./utils/api_connection";
 import nonAuth from "./pages/nonAuth";
+import ErrorComponent from "./components/ErrorComponent/ErrorCoponent";
 
 const CustomRouterProvider = () => {
     const { cookies } = useAuth();
@@ -46,7 +47,7 @@ const CustomRouterProvider = () => {
                     {
                         path: '/projects',
                         element: <ProjectProvider><Projects /></ProjectProvider>,
-                        errorElement: <ErrorPage />,
+                        errorElement: <ErrorComponent />,
 
                         loader: async () => {
                             return Projects.loader(cookies);
